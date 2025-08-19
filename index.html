@@ -102,7 +102,7 @@
         <footer class="bg-neutral-900 text-neutral-300 dark:bg-neutral-950 mt-12 py-8 px-4 sm:px-6 lg:px-8">
             <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
                 <div class="mb-4 md:mb-0">
-                    <p>&copy; 2025 My Personal Blog. All rights reserved.</p>
+                    <p>&copy; 2024 My Personal Blog. All rights reserved.</p>
                 </div>
                 <!-- Newsletter Form -->
                 <div class="w-full md:w-1/2 lg:w-1/3">
@@ -139,7 +139,11 @@
                     image: "https://placehold.co/600x400/a8a29e/ffffff?text=AI+Future",
                     excerpt: "Artificial intelligence is no longer a futuristic concept but a part of our daily lives. From smart assistants to complex algorithms, AI is revolutionizing industries...",
                     content: "Artificial intelligence (AI) is rapidly evolving, ushering in a new era of technological innovation. We're seeing AI integrated into everything from medical diagnostics to creative arts, challenging our traditional views on technology and human capability. The ethical implications and societal impact are subjects of intense debate, as we navigate a future where machines can learn, adapt, and create. This article explores the current state of AI, its potential, and the challenges we face on this exciting journey.",
-                    tags: ["AI", "Technology", "Innovation"]
+                    tags: ["AI", "Technology", "Innovation"],
+                    comments: [
+                        { author: "Alex", text: "Great article! Very insightful." },
+                        { author: "Chris", text: "I found the section on ethical implications particularly interesting." }
+                    ]
                 },
                 {
                     id: 2,
@@ -149,7 +153,10 @@
                     image: "https://placehold.co/600x400/d6d3d1/ffffff?text=Productivity+Tips",
                     excerpt: "Struggling to get things done? Productivity isn't about working harder, but smarter. These five tips can help you reclaim your time and achieve your goals...",
                     content: "In today's fast-paced world, staying productive can feel like a constant struggle. However, simple changes to your daily routine can make a significant difference. Start by prioritizing your most important tasks with the 'Eisenhower Matrix,' which helps you differentiate between urgent and important activities. Next, try the 'Pomodoro Technique'—working in focused, short bursts with regular breaks. Minimizing distractions, setting clear goals, and regular reflection are also key components of a highly productive lifestyle. By adopting these habits, you can boost your efficiency and reduce stress.",
-                    tags: ["Productivity", "Tips", "Lifestyle"]
+                    tags: ["Productivity", "Tips", "Lifestyle"],
+                    comments: [
+                        { author: "Emily", text: "The Pomodoro Technique has been a game-changer for me!" }
+                    ]
                 },
                 {
                     id: 3,
@@ -159,7 +166,8 @@
                     image: "https://placehold.co/600x400/78716c/ffffff?text=Healthy+Eating",
                     excerpt: "Eating healthy doesn't have to be complicated. This comprehensive guide breaks down the basics of nutrition, offering practical advice and simple meal ideas...",
                     content: "A balanced diet is the cornerstone of good health, but with so much information available, it's easy to get confused. The key is to focus on whole, unprocessed foods like fruits, vegetables, lean proteins, and whole grains. Understanding macronutrients—carbohydrates, proteins, and fats—and micronutrients—vitamins and minerals—is crucial for making informed food choices. Remember, hydration is just as important as the food you eat. This guide provides a foundational understanding of nutrition and offers easy-to-follow meal suggestions to kickstart your healthy eating journey.",
-                    tags: ["Health", "Nutrition", "Wellness"]
+                    tags: ["Health", "Nutrition", "Wellness"],
+                    comments: []
                 },
                 {
                     id: 4,
@@ -169,7 +177,8 @@
                     image: "https://placehold.co/600x400/a8a29e/ffffff?text=Digital+Art",
                     excerpt: "From pixel art to 3D sculpting, digital art offers endless creative possibilities. Discover the tools, techniques, and vibrant communities of this modern art form...",
                     content: "Digital art has transformed the creative landscape, empowering artists to produce stunning works using a variety of digital tools. Unlike traditional media, digital art provides a high degree of flexibility, with layers, undo functions, and a vast palette of colors and brushes. Popular software includes Adobe Photoshop, Procreate, and Blender for 3D modeling. The digital art community is thriving online, with platforms like ArtStation and DeviantArt providing spaces for artists to share their work and connect with others. Whether you're a beginner or an experienced artist, the world of digital art is waiting to be explored.",
-                    tags: ["Art", "Digital", "Creativity"]
+                    tags: ["Art", "Digital", "Creativity"],
+                    comments: []
                 }
             ];
 
@@ -314,8 +323,69 @@
                         <a href="#" class="mt-8 inline-block px-6 py-3 bg-stone-600 text-white rounded-lg hover:bg-stone-700 transition-colors" data-page="home">
                             <i class="fas fa-arrow-left mr-2"></i>Back to Home
                         </a>
+
+                        <!-- Comments Section -->
+                        <section class="mt-12 p-6 bg-neutral-100 dark:bg-neutral-800 rounded-xl">
+                            <h2 class="text-2xl font-bold mb-6 text-neutral-800 dark:text-neutral-100">Comments</h2>
+                            <form id="comment-form" class="mb-8">
+                                <input type="hidden" id="article-id" value="${article.id}">
+                                <div class="mb-4">
+                                    <label for="comment-author" class="block text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-1">Your Name</label>
+                                    <input type="text" id="comment-author" class="w-full p-3 rounded-lg bg-white dark:bg-neutral-900 text-neutral-800 dark:text-white border border-neutral-300 dark:border-neutral-600 focus:outline-none focus:ring-2 focus:ring-stone-500 interactive-element" placeholder="Jane Doe" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="comment-text" class="block text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-1">Your Comment</label>
+                                    <textarea id="comment-text" rows="4" class="w-full p-3 rounded-lg bg-white dark:bg-neutral-900 text-neutral-800 dark:text-white border border-neutral-300 dark:border-neutral-600 focus:outline-none focus:ring-2 focus:ring-stone-500 interactive-element" placeholder="Write your comment here..." required></textarea>
+                                </div>
+                                <button type="submit" class="w-full sm:w-auto px-6 py-3 bg-stone-600 text-white rounded-lg font-semibold hover:bg-stone-700 transition-colors focus:outline-none focus:ring-2 focus:ring-stone-500 interactive-element">
+                                    <i class="fas fa-comment-dots mr-2"></i>Submit Comment
+                                </button>
+                            </form>
+                            <div id="comments-list">
+                                <!-- Comments will be dynamically rendered here -->
+                                ${article.comments.map(comment => `
+                                    <div class="bg-white dark:bg-neutral-900 p-4 rounded-lg shadow-sm mb-4">
+                                        <p class="font-semibold text-neutral-800 dark:text-neutral-100">${comment.author}</p>
+                                        <p class="text-neutral-700 dark:text-neutral-200 mt-1">${comment.text}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </section>
                     </article>
                 `;
+
+                // Add event listener for the new comment form
+                const commentForm = document.getElementById('comment-form');
+                commentForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    
+                    const articleId = parseInt(document.getElementById('article-id').value);
+                    const author = document.getElementById('comment-author').value.trim();
+                    const text = document.getElementById('comment-text').value.trim();
+                    const commentsList = document.getElementById('comments-list');
+                    
+                    if (author && text) {
+                        const newComment = { author, text };
+                        
+                        // Find the article and add the new comment to the data structure
+                        const targetArticle = articlesData.find(a => a.id === articleId);
+                        if (targetArticle) {
+                            targetArticle.comments.push(newComment);
+                            
+                            // Dynamically render the new comment to the list
+                            commentsList.innerHTML += `
+                                <div class="bg-white dark:bg-neutral-900 p-4 rounded-lg shadow-sm mb-4">
+                                    <p class="font-semibold text-neutral-800 dark:text-neutral-100">${newComment.author}</p>
+                                    <p class="text-neutral-700 dark:text-neutral-200 mt-1">${newComment.text}</p>
+                                </div>
+                            `;
+                            
+                            // Clear the form fields
+                            document.getElementById('comment-author').value = '';
+                            document.getElementById('comment-text').value = '';
+                        }
+                    }
+                });
             };
 
             const renderAboutPage = () => {
@@ -323,7 +393,7 @@
                     <div class="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 text-center">
                         <h1 class="text-3xl sm:text-4xl font-bold text-neutral-800 dark:text-neutral-100 mb-4">About Me</h1>
                         <p class="text-lg text-neutral-700 dark:text-neutral-200 leading-relaxed max-w-2xl mx-auto">
-                            Hello! I'm Jeet, a passionate writer and technology enthusiast. This blog is my space to share my thoughts on the future of AI, tips for a productive life, and insights from my latest adventures. I believe that learning is a lifelong journey, and I hope my articles inspire you to explore new ideas and grow. Thanks for stopping by!
+                            Hello! I'm Jane, a passionate writer and technology enthusiast. This blog is my space to share my thoughts on the future of AI, tips for a productive life, and insights from my latest adventures. I believe that learning is a lifelong journey, and I hope my articles inspire you to explore new ideas and grow. Thanks for stopping by!
                         </p>
                         <a href="#" class="mt-8 inline-block px-6 py-3 bg-stone-600 text-white rounded-lg hover:bg-stone-700 transition-colors" data-page="home">
                             <i class="fas fa-home mr-2"></i>Return to Home
@@ -340,8 +410,8 @@
                             Have a question or a topic you'd like me to cover? Feel free to reach out. I'm always happy to hear from my readers!
                         </p>
                         <div class="mt-8 flex flex-col items-center">
-                            <a href="mailto:jeet@myblog.com" class="text-stone-600 dark:text-stone-400 hover:underline text-lg font-medium interactive-element">
-                                <i class="fas fa-envelope mr-2"></i>jeet@myblog.com
+                            <a href="mailto:contact@myblog.com" class="text-stone-600 dark:text-stone-400 hover:underline text-lg font-medium interactive-element">
+                                <i class="fas fa-envelope mr-2"></i>contact@myblog.com
                             </a>
                             <a href="#" class="mt-8 inline-block px-6 py-3 bg-stone-600 text-white rounded-lg hover:bg-stone-700 transition-colors" data-page="home">
                                 <i class="fas fa-home mr-2"></i>Return to Home
