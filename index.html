@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Blog</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
+    <script src="https://kit.fontawesome.com/c405a81230.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define modern & minimalist color themes using CSS variables */
+        :root {
+            --bg-color: #ffffff; /* white */
+            --text-color: #444444; /* neutral-800 */
+            --heading-color: #222222; /* neutral-900 */
+            --link-color: #a8a29e; /* stone-400 */
+            --link-hover-color: #78716c; /* stone-600 */
+            --card-bg: #f5f5f5; /* neutral-100 */
+            --border-color: #e5e5e5; /* neutral-200 */
+            --newsletter-bg: #e5e5e5; /* neutral-200 */
+            --newsletter-text: #444444; /* neutral-800 */
+            --input-border: #a3a3a3; /* neutral-400 */
+            --error-color: #ef4444; /* red-500 */
+            --success-color: #22c55e; /* green-500 */
+        }
+        .dark {
+            --bg-color: #0a0a0a; /* neutral-950 */
+            --text-color: #e5e5e5; /* neutral-200 */
+            --heading-color: #fafafa; /* neutral-50 */
+            --link-color: #d6d3d1; /* stone-300 */
+            --link-hover-color: #a8a29e; /* stone-400 */
+            --card-bg: #171717; /* neutral-900 */
+            --border-color: #404040; /* neutral-800 */
+            --newsletter-bg: #262626; /* neutral-800 */
+            --newsletter-text: #e5e5e5; /* neutral-200 */
+            --input-border: #737373; /* neutral-600 */
+            --error-color: #fca5a5; /* red-300 */
+            --success-color: #86efac; /* green-300 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1rem;
+        }
+        
+        /* Custom styles for hover and focus states */
+        .interactive-element:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .interactive-element:focus {
+            outline: 2px solid var(--link-hover-color);
+            outline-offset: 2px;
+        }
+
+        a, button {
+            transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-neutral-950 transition-colors duration-300">
+    <div id="app" class="font-inter">
+        <!-- Header Section -->
+        <header class="bg-white dark:bg-neutral-900 shadow-md sticky top-0 z-50">
+            <div class="container mx-auto flex justify-between items-center py-4 px-4 sm:px-6 lg:px-8">
+                <a href="#" class="text-2xl font-bold text-neutral-800 dark:text-neutral-100 hover:text-stone-600 transition-colors" data-page="home">My Personal Blog</a>
+                <nav class="flex items-center space-x-4 sm:space-x-6">
+                    <a href="#" class="text-neutral-600 dark:text-neutral-300 hover:text-stone-600 dark:hover:text-stone-400 transition-colors interactive-element" data-page="home">Home</a>
+                    <a href="#" class="text-neutral-600 dark:text-neutral-300 hover:text-stone-600 dark:hover:text-stone-400 transition-colors interactive-element" data-page="about">About</a>
+                    <a href="#" class="text-neutral-600 dark:text-neutral-300 hover:text-stone-600 dark:hover:text-stone-400 transition-colors interactive-element" data-page="contact">Contact</a>
+                    <button id="theme-toggle" class="p-2 rounded-full text-neutral-500 dark:text-neutral-400 bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-stone-500 interactive-element">
+                        <i class="fas fa-sun" id="theme-icon"></i>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content Section -->
+        <main id="main-content" class="container mx-auto mt-8 px-4 sm:px-6 lg:px-8">
+            <!-- Content will be rendered here dynamically -->
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="bg-neutral-900 text-neutral-300 dark:bg-neutral-950 mt-12 py-8 px-4 sm:px-6 lg:px-8">
+            <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <div class="mb-4 md:mb-0">
+                    <p>&copy; 2025 My Personal Blog. All rights reserved.</p>
+                </div>
+                <!-- Newsletter Form -->
+                <div class="w-full md:w-1/2 lg:w-1/3">
+                    <h3 class="text-lg font-semibold text-white mb-2">Subscribe to our newsletter</h3>
+                    <form id="newsletter-form" class="flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-2">
+                        <input type="email" id="email-input" placeholder="Enter your email" required class="w-full sm:w-auto flex-grow p-3 rounded-lg text-neutral-800 bg-white border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-stone-500 interactive-element">
+                        <button type="submit" class="w-full sm:w-auto px-6 py-3 bg-stone-600 text-white rounded-lg font-semibold hover:bg-stone-700 transition-colors focus:outline-none focus:ring-2 focus:ring-stone-500 interactive-element">
+                            <i class="fas fa-paper-plane mr-2"></i>Subscribe
+                        </button>
+                    </form>
+                    <div id="message-container" class="mt-2 text-sm text-center"></div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = document.getElementById('app');
+            const mainContent = document.getElementById('main-content');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const newsletterForm = document.getElementById('newsletter-form');
+            const emailInput = document.getElementById('email-input');
+            const messageContainer = document.getElementById('message-container');
+
+            // --- Data Simulation (as a local data.json file) ---
+            const articlesData = [
+                {
+                    id: 1,
+                    title: "The Future of AI: A New Era of Innovation",
+                    author: "Jane Doe",
+                    date: "July 1, 2024",
+                    image: "https://placehold.co/600x400/a8a29e/ffffff?text=AI+Future",
+                    excerpt: "Artificial intelligence is no longer a futuristic concept but a part of our daily lives. From smart assistants to complex algorithms, AI is revolutionizing industries...",
+                    content: "Artificial intelligence (AI) is rapidly evolving, ushering in a new era of technological innovation. We're seeing AI integrated into everything from medical diagnostics to creative arts, challenging our traditional views on technology and human capability. The ethical implications and societal impact are subjects of intense debate, as we navigate a future where machines can learn, adapt, and create. This article explores the current state of AI, its potential, and the challenges we face on this exciting journey.",
+                    tags: ["AI", "Technology", "Innovation"]
+                },
+                {
+                    id: 2,
+                    title: "Mastering Productivity: 5 Simple Tips",
+                    author: "John Smith",
+                    date: "June 25, 2024",
+                    image: "https://placehold.co/600x400/d6d3d1/ffffff?text=Productivity+Tips",
+                    excerpt: "Struggling to get things done? Productivity isn't about working harder, but smarter. These five tips can help you reclaim your time and achieve your goals...",
+                    content: "In today's fast-paced world, staying productive can feel like a constant struggle. However, simple changes to your daily routine can make a significant difference. Start by prioritizing your most important tasks with the 'Eisenhower Matrix,' which helps you differentiate between urgent and important activities. Next, try the 'Pomodoro Technique'—working in focused, short bursts with regular breaks. Minimizing distractions, setting clear goals, and regular reflection are also key components of a highly productive lifestyle. By adopting these habits, you can boost your efficiency and reduce stress.",
+                    tags: ["Productivity", "Tips", "Lifestyle"]
+                },
+                {
+                    id: 3,
+                    title: "The Ultimate Guide to Healthy Eating",
+                    author: "Alice Johnson",
+                    date: "June 18, 2024",
+                    image: "https://placehold.co/600x400/78716c/ffffff?text=Healthy+Eating",
+                    excerpt: "Eating healthy doesn't have to be complicated. This comprehensive guide breaks down the basics of nutrition, offering practical advice and simple meal ideas...",
+                    content: "A balanced diet is the cornerstone of good health, but with so much information available, it's easy to get confused. The key is to focus on whole, unprocessed foods like fruits, vegetables, lean proteins, and whole grains. Understanding macronutrients—carbohydrates, proteins, and fats—and micronutrients—vitamins and minerals—is crucial for making informed food choices. Remember, hydration is just as important as the food you eat. This guide provides a foundational understanding of nutrition and offers easy-to-follow meal suggestions to kickstart your healthy eating journey.",
+                    tags: ["Health", "Nutrition", "Wellness"]
+                },
+                {
+                    id: 4,
+                    title: "Exploring the World of Digital Art",
+                    author: "Bob Williams",
+                    date: "June 10, 2024",
+                    image: "https://placehold.co/600x400/a8a29e/ffffff?text=Digital+Art",
+                    excerpt: "From pixel art to 3D sculpting, digital art offers endless creative possibilities. Discover the tools, techniques, and vibrant communities of this modern art form...",
+                    content: "Digital art has transformed the creative landscape, empowering artists to produce stunning works using a variety of digital tools. Unlike traditional media, digital art provides a high degree of flexibility, with layers, undo functions, and a vast palette of colors and brushes. Popular software includes Adobe Photoshop, Procreate, and Blender for 3D modeling. The digital art community is thriving online, with platforms like ArtStation and DeviantArt providing spaces for artists to share their work and connect with others. Whether you're a beginner or an experienced artist, the world of digital art is waiting to be explored.",
+                    tags: ["Art", "Digital", "Creativity"]
+                }
+            ];
+
+            // --- Theme Toggling ---
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            });
+
+            // --- Article Rendering Functions ---
+            const renderArticleCard = (article) => {
+                return `
+                    <div class="article-card bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg transform transition-transform duration-300 interactive-element">
+                        <img src="${article.image}" alt="${article.title}" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h2 class="text-xl md:text-2xl font-semibold mb-2 text-neutral-800 dark:text-neutral-100">${article.title}</h2>
+                            <p class="text-neutral-600 dark:text-neutral-300 text-sm mb-4">By ${article.author} on ${article.date}</p>
+                            <p class="text-neutral-700 dark:text-neutral-200 mb-4">${article.excerpt}</p>
+                            <a href="#" class="text-stone-600 dark:text-stone-400 font-medium hover:underline focus:outline-none focus:underline" data-page="article" data-id="${article.id}">Read more &rarr;</a>
+                        </div>
+                    </div>
+                `;
+            };
+
+            const renderHomePage = () => {
+                // Get all unique tags from the articles
+                const allTags = [...new Set(articlesData.flatMap(article => article.tags))];
+                let featuredArticles = articlesData.slice(0, 3).map(renderArticleCard).join('');
+                let allArticles = articlesData.map(renderArticleCard).join('');
+
+                mainContent.innerHTML = `
+                    <!-- Hero Section -->
+                    <section class="bg-stone-600 text-white p-8 rounded-xl shadow-lg mb-12">
+                        <div class="max-w-3xl mx-auto text-center">
+                            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4">Welcome to My Blog</h1>
+                            <p class="text-lg md:text-xl font-light">Sharing thoughts, stories, and insights on technology, productivity, and life.</p>
+                        </div>
+                    </section>
+                    
+                    <!-- Search and Filter Section -->
+                    <section class="mb-8">
+                        <div class="flex flex-col md:flex-row items-center gap-4 mb-4">
+                            <input type="text" id="search-input" placeholder="Search articles..." class="w-full md:flex-grow p-3 rounded-lg text-neutral-800 dark:text-white bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 focus:outline-none focus:ring-2 focus:ring-stone-500 interactive-element">
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-sm font-semibold text-neutral-700 dark:text-neutral-200">Filter by tags:</span>
+                            <button class="tag-filter-btn px-4 py-2 text-sm rounded-full bg-stone-600 text-white hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-500 interactive-element" data-tag="all">All</button>
+                            ${allTags.map(tag => `
+                                <button class="tag-filter-btn px-4 py-2 text-sm rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:bg-neutral-300 dark:hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-stone-500 interactive-element" data-tag="${tag}">${tag}</button>
+                            `).join('')}
+                        </div>
+                    </section>
+                    
+                    <!-- Articles Section -->
+                    <section>
+                        <h2 id="article-section-title" class="text-2xl sm:text-3xl font-bold mb-6 text-neutral-800 dark:text-neutral-100">All Articles</h2>
+                        <div id="articles-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${allArticles}
+                        </div>
+                    </section>
+                `;
+
+                // Add event listeners for search and filter
+                document.getElementById('search-input').addEventListener('keyup', filterAndRenderArticles);
+                document.querySelectorAll('.tag-filter-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const tag = e.target.dataset.tag;
+                        filterAndRenderArticles(null, tag);
+                    });
+                });
+            };
+
+            const filterAndRenderArticles = (e, selectedTag = null) => {
+                const articlesContainer = document.getElementById('articles-container');
+                const articleSectionTitle = document.getElementById('article-section-title');
+                const searchTerm = e ? e.target.value.toLowerCase() : '';
+                
+                let filteredArticles = articlesData;
+
+                if (selectedTag && selectedTag !== 'all') {
+                    filteredArticles = filteredArticles.filter(article => article.tags.includes(selectedTag));
+                    articleSectionTitle.textContent = `Articles tagged with "${selectedTag}"`;
+                } else if (searchTerm) {
+                    filteredArticles = filteredArticles.filter(article => 
+                        article.title.toLowerCase().includes(searchTerm) ||
+                        article.excerpt.toLowerCase().includes(searchTerm) ||
+                        article.content.toLowerCase().includes(searchTerm)
+                    );
+                    articleSectionTitle.textContent = `Search results for "${searchTerm}"`;
+                } else {
+                    articleSectionTitle.textContent = 'All Articles';
+                }
+
+                if (filteredArticles.length > 0) {
+                    articlesContainer.innerHTML = filteredArticles.map(renderArticleCard).join('');
+                } else {
+                    articlesContainer.innerHTML = '<p class="col-span-full text-center text-lg text-neutral-600 dark:text-neutral-400">No articles found matching your criteria.</p>';
+                }
+            };
+
+
+            const renderArticlePage = (articleId) => {
+                const article = articlesData.find(a => a.id === parseInt(articleId));
+                if (!article) {
+                    mainContent.innerHTML = `
+                        <div class="text-center p-8 bg-white dark:bg-neutral-900 rounded-lg shadow">
+                            <h2 class="text-3xl font-bold text-neutral-800 dark:text-white">Article Not Found</h2>
+                            <p class="mt-4 text-neutral-600 dark:text-neutral-400">The article you are looking for does not exist.</p>
+                            <a href="#" class="mt-6 inline-block px-6 py-3 bg-stone-600 text-white rounded-lg hover:bg-stone-700 transition-colors" data-page="home">Back to Home</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                mainContent.innerHTML = `
+                    <article class="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-6 sm:p-8 lg:p-12">
+                        <img src="${article.image}" alt="${article.title}" class="w-full h-64 object-cover rounded-lg mb-6 shadow">
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-800 dark:text-neutral-100 mb-4">${article.title}</h1>
+                        <p class="text-neutral-600 dark:text-neutral-300 text-sm mb-6">By <span class="font-medium">${article.author}</span> on <span class="font-medium">${article.date}</span></p>
+                        <div class="prose dark:prose-invert max-w-none text-neutral-700 dark:text-neutral-200 leading-relaxed">
+                            <p class="text-lg">${article.content}</p>
+                        </div>
+                        <div class="mt-8">
+                            <span class="font-semibold text-neutral-800 dark:text-neutral-200">Tags:</span>
+                            ${article.tags.map(tag => `<span class="inline-block bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-semibold px-2 py-1 rounded-full mr-2">${tag}</span>`).join('')}
+                        </div>
+                        <a href="#" class="mt-8 inline-block px-6 py-3 bg-stone-600 text-white rounded-lg hover:bg-stone-700 transition-colors" data-page="home">
+                            <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                        </a>
+                    </article>
+                `;
+            };
+
+            const renderAboutPage = () => {
+                mainContent.innerHTML = `
+                    <div class="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 text-center">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-neutral-800 dark:text-neutral-100 mb-4">About Me</h1>
+                        <p class="text-lg text-neutral-700 dark:text-neutral-200 leading-relaxed max-w-2xl mx-auto">
+                            Hello! I'm Jeet, a passionate writer and technology enthusiast. This blog is my space to share my thoughts on the future of AI, tips for a productive life, and insights from my latest adventures. I believe that learning is a lifelong journey, and I hope my articles inspire you to explore new ideas and grow. Thanks for stopping by!
+                        </p>
+                        <a href="#" class="mt-8 inline-block px-6 py-3 bg-stone-600 text-white rounded-lg hover:bg-stone-700 transition-colors" data-page="home">
+                            <i class="fas fa-home mr-2"></i>Return to Home
+                        </a>
+                    </div>
+                `;
+            };
+
+            const renderContactPage = () => {
+                mainContent.innerHTML = `
+                    <div class="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 text-center">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-neutral-800 dark:text-neutral-100 mb-4">Get in Touch</h1>
+                        <p class="text-lg text-neutral-700 dark:text-neutral-200 leading-relaxed max-w-2xl mx-auto">
+                            Have a question or a topic you'd like me to cover? Feel free to reach out. I'm always happy to hear from my readers!
+                        </p>
+                        <div class="mt-8 flex flex-col items-center">
+                            <a href="mailto:jeet@myblog.com" class="text-stone-600 dark:text-stone-400 hover:underline text-lg font-medium interactive-element">
+                                <i class="fas fa-envelope mr-2"></i>jeet@myblog.com
+                            </a>
+                            <a href="#" class="mt-8 inline-block px-6 py-3 bg-stone-600 text-white rounded-lg hover:bg-stone-700 transition-colors" data-page="home">
+                                <i class="fas fa-home mr-2"></i>Return to Home
+                            </a>
+                        </div>
+                    </div>
+                `;
+            };
+
+            // --- Navigation Logic ---
+            const navigate = (page, id = null) => {
+                switch (page) {
+                    case 'home':
+                        renderHomePage();
+                        break;
+                    case 'article':
+                        renderArticlePage(id);
+                        break;
+                    case 'about':
+                        renderAboutPage();
+                        break;
+                    case 'contact':
+                        renderContactPage();
+                        break;
+                    default:
+                        renderHomePage();
+                }
+            };
+
+            // Initial page render
+            navigate('home');
+
+            // Global event listener for navigation links
+            document.getElementById('app').addEventListener('click', (event) => {
+                const target = event.target.closest('a[data-page], button[data-page]');
+                if (target) {
+                    event.preventDefault();
+                    const page = target.getAttribute('data-page');
+                    const id = target.getAttribute('data-id');
+                    navigate(page, id);
+                    window.scrollTo(0, 0); // Scroll to top on navigation
+                }
+            });
+
+            // --- Newsletter Form Validation ---
+            const validateEmail = (email) => {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(String(email).toLowerCase());
+            };
+
+            newsletterForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const email = emailInput.value.trim();
+                messageContainer.innerHTML = ''; // Clear previous messages
+                messageContainer.className = 'mt-2 text-sm text-center';
+
+                if (email === '') {
+                    messageContainer.innerHTML = 'Email address cannot be empty.';
+                    messageContainer.classList.add('text-red-500', 'dark:text-red-400');
+                    return;
+                }
+
+                if (!validateEmail(email)) {
+                    messageContainer.innerHTML = 'Invalid email address format.';
+                    messageContainer.classList.add('text-red-500', 'dark:text-red-400');
+                    return;
+                }
+
+                // Simulate successful submission
+                messageContainer.innerHTML = 'Thank you for subscribing!';
+                messageContainer.classList.add('text-green-500', 'dark:text-green-400');
+                emailInput.value = '';
+            });
+        });
+    </script>
+</body>
+</html>
